@@ -69,9 +69,24 @@ public class AmicableNumbers {
 
     public String printList(ArrayList<Integer> list){
         String result = "";
-        for(int num:list.subList(0,list.size()-2)){
-            result+= num + ", ";
+        if(list.size() == 3){
+            result+=list.get(0) + ", " + list.get(1) + ", and "  + list.get(2);
+            return result;
         }
+        if(list.size() > 2){
+            for(int num:list.subList(0,list.size()-2)){
+                result+= num + ", ";
+            }
+        }
+        else if(list.size() > 1){
+            result+=list.get(0) + " and " + list.get(1);
+            return result;
+        }
+        else{
+            result+=list.get(0);
+            return result;
+        }
+
         result+="and " + list.get(list.size()-1);
         return result;
 
