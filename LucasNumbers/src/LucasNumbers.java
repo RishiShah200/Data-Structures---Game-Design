@@ -15,7 +15,7 @@ public class LucasNumbers {
             String text;
             while((text= input.readLine()) != null){
                 int num = Integer.parseInt(text);
-                System.out.println(findTerm(num));
+                System.out.println("Term: " + num + " Value: " + findTerm(num));
             }
         }catch (IOException e){
 
