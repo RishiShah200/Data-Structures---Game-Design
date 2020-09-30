@@ -1,55 +1,82 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Spiral {
-    public Spiral(Scanner reader){
-        food(20,reader);
-    }
-    public static int food(int x,Scanner reader){
-        System.out.print("Please enter the value :");
-        int value = reader.nextInt();
-        while(value<=1){
-            System.out.print("The value you have entered is invalid, please repick ");
-            value = reader.nextInt();
-        }
-        int mincol = 0;
-        int maxcol = value-1;
-        int minrow = 0;
-        int maxrow = value-1;
-        int cnt = 1;
-        int [][] arr = new int [x][x];
-        while(cnt<=value*value){
-            for(int y = mincol;y<=maxcol;y++){
-                arr[minrow][y] = cnt;
-                cnt++;
-            }
-            for(int y = minrow+1;y<=maxrow;y++){
-                arr[y][maxcol] = cnt;
-                cnt++;
-            }
-            for(int y = maxcol-1;y>=mincol;y--){
-                arr[maxrow][y] = cnt;
-                cnt++;
-            }
-            for(int y = maxrow-1;y>=minrow+1;y--){
-                arr[y][mincol] = cnt;
-                cnt++;
-            }
-            mincol++;
-            minrow++;
-            maxcol--;
-            maxrow--;
-        }
-        for(int h = 0;h<arr.length;h++){
-            for(int p = 0;p<arr.length;p++){
-                System.out.print(arr[h][p]+"\t");
-            }
-            System.out.println();
-        }
-        return value;
-    }
-    public static void main(String[]args){
-        Scanner reader = new Scanner (System.in);
-        Spiral app = new Spiral(reader);
 
+    public Spiral(){
+        File data = new File("src/Spiraling.txt");
+
+        try{
+            BufferedReader input = new BufferedReader(new FileReader(data));
+            String text;
+            while((text=input.readLine()) != null){
+                int size = Integer.parseInt(text);
+                String[][] array = new String[size][size];
+
+                int startR = 0;
+                int startC = 0;
+                int endR = size - 1;
+                int endC = size - 1;
+
+                for (int x = 0; x<array[0].length; x++){
+                    for (int y = 0; y<array.length; y++){
+                        array[x][y] = "-";
+                    }
+                }
+
+                while(startR<= endR && startC<=endC){
+
+                    for(int c = startC;c<=endC;c++){ //going right
+                        array[startR][c] = "*";
+
+                    }
+                    if(startC >= 1){
+                        startC++;
+                    }
+                    startR++;
+
+                    for(int r = startR;r<=endR;r++){    //going down
+                        array[r][endC] = "*";
+                    }
+                    endC--;
+
+                    for(int c = endC;c>=startC;c--){
+                        array[endR][c] = "*";
+                    }
+                    endR--;
+
+                    for(int r = endR; r >= startR+1;r--){
+                        array[r][startC] = "*";
+                    }
+                    startC++;
+                    startR++;
+                    endC--;
+                    endR--;
+
+                }
+
+                if(array.length%4==2){
+                    array[size/2][(size/2)-1] = "-";
+                }
+
+                for (int x = 0; x<array[0].length; x++){
+                    for (int y = 0; y<array.length; y++){
+                        System.out.print(array[x][y]);
+                    }
+                    System.out.println();
+                }
+                System.out.println();
+
+            }
+        }catch (IOException e){
+            System.out.print(e);
+        }
+    }
+
+    public static void main(String[]args){
+        Spiral app = new Spiral();
     }
 }
