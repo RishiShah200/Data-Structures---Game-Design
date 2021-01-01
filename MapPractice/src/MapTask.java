@@ -24,27 +24,51 @@ public class MapTask {
             }
 
             System.out.println(map);
-
-            Iterator<PriorityQueue<Bowler>> keys = map.values().iterator();
-
-            while(keys.hasNext()){
-                PriorityQueue<Bowler> pq = map.get(keys.next());
-                while(!pq.isEmpty())
-                    System.out.println(pq.poll());
-            }
-
-            /*System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("+++++++++++++++++++++++KEYS+++++++++++++++++++++");
             System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
 
+
+            Iterator<Integer> keys = map.keySet().iterator();
+
+            while(keys.hasNext()){
+                System.out.println(keys.next());
+            }
+
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("+++++++++++++++++++++++ENTRY SET++++++++++++++++");
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+
+            for(int key : map.keySet())
+                System.out.println(key + "=" + printPriorityQueue(map.get(key)));
+
+
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("+++++++++++++++++++++++VALUES+++++++++++++++++++");
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+
+            for(PriorityQueue<Bowler> pq : map.values())
+                System.out.println(printPriorityQueue(pq));
+
+
+
             while(keys.hasNext()){
                 System.out.println(keys);
-            }*/
+            }
         }catch(Exception e) {
             e.printStackTrace();
         }
 
 
+    }
+
+    public String printPriorityQueue(PriorityQueue<Bowler> priorityQueue){
+        PriorityQueue<Bowler> temp = new PriorityQueue<Bowler>(priorityQueue);
+        String output = "[";
+        while(!temp.isEmpty()){
+            output += temp.poll() + (temp.isEmpty() ? "]" : ",");
+        }
+        return output;
     }
 
     public static void main(String[]args){

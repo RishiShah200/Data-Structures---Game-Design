@@ -27,23 +27,13 @@ public class Bowler implements Comparable<Bowler> {
 
     @Override
     public int compareTo(Bowler other) {
-        if(getLastName().compareTo(other.getLastName()) > 0){
-            return 1;
-        }
-        if(getLastName().compareTo(other.getLastName()) < 0){
-            return -1;
-        }
-        if(getFirstName().compareTo(other.getFirstName()) > 0){
-            return 1;
-        }
-        if(getFirstName().compareTo(other.getFirstName()) < 0){
-            return -1;
-        }
-        return 0;
+        if(getLastName().toLowerCase().compareTo(other.getLastName().toLowerCase()) == 0)
+            return getFirstName().toLowerCase().compareTo(other.getFirstName().toLowerCase());
+        return getLastName().toLowerCase().compareTo(other.getLastName().toLowerCase());
     }
 
     public String toString(){
-        return firstName + " " + lastName;
+        return getFirstName() + " " + getLastName();
     }
 
     public int getScore() {
